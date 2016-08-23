@@ -1,4 +1,4 @@
---1: a SELECT using a LIKE
+--1: a SELECT using a LIKE something
 --Finding a staff members address starting with "I"
 SELECT * 
 FROM staff
