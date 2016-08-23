@@ -38,22 +38,28 @@ CREATE TABLE staff
         salary NUMBER(6),
         s_ph_no NUMBER(10) NOT NULL,
         s_address VARCHAR2(30),
+	date_of_birth DATE,
         age INT);
 
 INSERT INTO staff VALUES
-       ('Reuben', 'Poor','987654321', 100, 1231231234, '123 BC Street', 20);
+       ('Reuben', 'Poor','987654321', 100, 1231231234, '123 BC Street', TO_DATE('12-12-1996',
+        'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Joe', 'Penn','123123123', 900000, 0278567432, '698 Mary Lane', 20);
+       ('Joe', 'Penn','123123123', 900000, 0278567432, '698 Mary Lane', TO_DATE('12-12-1996',
+        'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Bayley', 'Pillar','875645342', 850000, 1341231234, 'Invercargill', 20);
+       ('Bayley', 'Pillar','875645342', 850000, 1341231234, 'Invercargill', TO_DATE('23-12-1999',
+        'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Blake', 'Brah','777654421', 10, 8887774321, '1 Fivefoot-fiveinch Street', 20);
+       ('Blake', 'Brah','777654421', 10, 8887774321, '1 Fivefoot-fiveinch Street', TO_DATE('23-12-1996',
+        'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('George', 'F-Skyscraper','987000001', 50000, 6574869853, 'The Moon', 20);
+       ('George', 'F-Skyscraper','987000001', 50000, 6574869853, 'The Moon', TO_DATE('25-11-1995',
+        'DD-MM-YYYY'), 20);
 
 CREATE TABLE appointment
        (pickup_time VARCHAR2(10) NOT NULL,
