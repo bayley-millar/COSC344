@@ -71,8 +71,10 @@ CREATE TABLE appointment
 INSERT INTO appointment VALUES
        (TO_TIMESTAMP('10-SEP-0214:10:10.123000','DD-MON-RRHH24:MI:SS.FF'),
          'oil change', '555555555',
-         TO_TIMESTAMP('10-SEP-0214:10:32.123000','DD-MON-RRHH24:MI:SS.FF'), 
+         TO_TIMESTAMP('10-SEP-0214:10:32.123000','DD-MON-RRHH24:MI:SS.FF'),
          TO_DATE('25-12-2015','DD-MM-YYYY'));
+
+         
 
 CREATE TABLE account
        (acc_id CHAR(9) PRIMARY KEY,
