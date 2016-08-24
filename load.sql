@@ -62,15 +62,17 @@ INSERT INTO staff VALUES
         'DD-MM-YYYY'), 20);
 
 CREATE TABLE appointment
-       (pickup_time VARCHAR2(10) NOT NULL,
+       (pickup_time TIMESTAMP NOT NULL,
         work_to_do VARCHAR2(30),
         ap_id CHAR(9) PRIMARY KEY,
-        time_booked_for VARCHAR2(10),
+        time_booked_for TIMESTAMP,
         ap_date DATE);
 
 INSERT INTO appointment VALUES
-       ('4:30pm', 'oil change', '555555555', '9.30am', TO_DATE('25-12-2015',
-        'DD-MM-YYYY'));
+       (TO_TIMESTAMP('10-SEP-0214:10:10.123000','DD-MON-RRHH24:MI:SS.FF'),
+         'oil change', '555555555',
+         TO_TIMESTAMP('10-SEP-0214:10:32.123000','DD-MON-RRHH24:MI:SS.FF'), 
+         TO_DATE('25-12-2015','DD-MM-YYYY'));
 
 CREATE TABLE account
        (acc_id CHAR(9) PRIMARY KEY,
@@ -133,4 +135,3 @@ INSERT INTO car VALUES
        ('656565656', 'MINI', 'Cooper', '1998');
 
 COMMIT;
-        
