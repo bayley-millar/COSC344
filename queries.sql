@@ -18,7 +18,23 @@ FROM staff
 GROUP BY s_fname
 HAVING MAX(salary) > 100000;
 
---4: a query using a subquery
---
-SELECT 
+--4:
+SELECT *
+       FROM account
+       WHERE ca_id IN
+             (SELECT c_id
+                     FROM customer
+                     WHERE c_gender = 'F');
+
+
+
+--6: a query involving COUNT(*)
+-- finds customers whose balance is over the average customer balance
+
+SELECT *
+       FROM customer
+       WHERE c_ID IN
+             (SELECT c_ID
+                     FROM account
+                     WHERE balance > AVG(balance));
  
