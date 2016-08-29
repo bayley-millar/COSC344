@@ -46,19 +46,19 @@ INSERT INTO staff VALUES
         'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Joe', 'Penn','123123123', 900000, 0278567432, '698 Mary Lane', TO_DATE('12-12-1996',
+       ('Joe', 'Penn','123123123', 900000, 0278567432, '698 Mary Lane', TO_DATE('12-12-1964',
         'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Bayley', 'Pillar','875645342', 850000, 1341231234, 'Invercargill', TO_DATE('23-12-1999',
+       ('Bayley', 'Pillar','875645342', 850000, 1341231234, 'Invercargill', TO_DATE('23-12-1970',
         'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Blake', 'Brah','777654421', 10, 8887774321, '1 Fivefoot-fiveinch Street', TO_DATE('23-12-1996',
+       ('Blake', 'Brah','777654421', 10, 8887774321, '1 Fivefoot-fiveinch Street', TO_DATE('23-12-1999',
         'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('George', 'F-Skyscraper','987000001', 50000, 6574869853, 'The Moon', TO_DATE('25-11-1995',
+       ('George', 'F-Skyscraper','987000001', 50000, 6574869853, 'The Moon', TO_DATE('25-11-1980',
         'DD-MM-YYYY'), 20);
 
 CREATE TABLE appointment
@@ -82,7 +82,7 @@ CREATE TABLE account
         balance FLOAT,
         last_visit DATE);
 INSERT INTO account VALUES
-('888888888', '666666666', 543.89, TO_DATE('14-04-2015',
+('888888888', '666666666', 543.89, TO_DATE('14-04-1999',
  'DD-MM-YYYY'));
 
 INSERT INTO account VALUES
@@ -131,9 +131,16 @@ CREATE TABLE car
        (car_id CHAR(9) PRIMARY KEY,
         make VARCHAR2(15) NOT NULL,
         model VARCHAR2(15),
-        mk_year VARCHAR2(15));
+        mk_year VARCHAR2(15),
+		c_id CHAR(9) REFERENCES customer(c_id));
 
 INSERT INTO car VALUES
-       ('656565656', 'MINI', 'Cooper', '1998');
+       ('656565656', 'MINI', 'Cooper', '1998', '666666666');
+INSERT INTO car VALUES
+       ('656565658', 'HATCHBACK', 'skyline', '1998', '666666666');
+INSERT INTO car VALUES
+       ('656565654', 'RANGEROVER', '4wd', '1998', '666666666');
+INSERT INTO car VALUES
+       ('653565654', 'FORD', 'lasers', '1998', '555555555');
 
 COMMIT;
