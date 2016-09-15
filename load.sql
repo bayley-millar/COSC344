@@ -80,22 +80,24 @@ CREATE TABLE account
        (acc_id CHAR(9) PRIMARY KEY,
         ca_id CHAR(9) NOT NULL REFERENCES customer(c_id),
         balance FLOAT,
-        last_visit DATE);
+        last_visit DATE,
+	staff_ID CHAR(9) REFERENCES staff(s_id)
+	);
 INSERT INTO account VALUES
 ('888888888', '666666666', 543.89, TO_DATE('14-04-1999',
- 'DD-MM-YYYY'));
+ 'DD-MM-YYYY'), 123123123);
 
 INSERT INTO account VALUES
      ('888888881', '111111111', 5.89, TO_DATE('23-09-2015',
-'DD-MM-YYYY'));
+'DD-MM-YYYY'),123123123);
 
 INSERT INTO account VALUES
 ('888888882', '555555555', 89.50, TO_DATE('18-10-2015',
-'DD-MM-YYYY'));
+'DD-MM-YYYY'), 123123123);
 
 INSERT INTO account VALUES
 ('888888883', '999999999', 1205.80, TO_DATE('01-01-2015',
-'DD-MM-YYYY'));
+'DD-MM-YYYY'), 123123123);
 
 
 
@@ -113,16 +115,16 @@ CREATE TABLE transactions
        (t_date DATE,
         t_type CHAR(2),
         amount FLOAT,
-        transaction_no CHAR(9),
-        t_acc_id CHAR(9) REFERENCES account(acc_id),
-        PRIMARY KEY(t_acc_id, transaction_no));
+	transaction_no CHAR(9),
+        account_ID CHAR(9) REFERENCES account(acc_id),
+        PRIMARY KEY(account_ID, transaction_no));
 
 INSERT INTO transactions VALUES
 (TO_DATE('14-02-1998','DD-MM-YYYY'), 'CH', 1200.80,983642313 ,'888888888');
 INSERT INTO transactions VALUES
 (TO_DATE('18-02-1999','DD-MM-YYYY'), 'CH', 80,983642311 ,'888888881');
 INSERT INTO transactions VALUES
-(TO_DATE('14-09-1998','DD-MM-YYYY'), 'CH',     .80,983642312 ,'888888882');
+(TO_DATE('14-09-1998','DD-MM-YYYY'), 'CH', 80 ,983642312 ,'888888882');
 INSERT INTO transactions VALUES
 (TO_DATE('19-07-1995','DD-MM-YYYY'), 'CH', 1200.80,983642314 ,'888888883');
 
