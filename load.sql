@@ -3,10 +3,10 @@ DROP TABLE appointment_work_to_do;
 DROP TABLE responsible_for;
 DROP TABLE customer_phone_number;
 DROP TABLE manages;
-DROP TABLE car;
 DROP TABLE transactions;
 DROP TABLE parts;
 DROP TABLE appointment;
+DROP TABLE car;
 DROP TABLE account;
 DROP TABLE staff;
 DROP TABLE customer;
@@ -90,19 +90,36 @@ INSERT INTO account VALUES
 'DD-MM-YYYY'));
 
 
+CREATE TABLE car
+(car_id CHAR(9) PRIMARY KEY,
+make VARCHAR2(15) NOT NULL,
+model VARCHAR2(15),
+mk_year VARCHAR2(15),
+c_id CHAR(9) REFERENCES customer(c_id));
+
+INSERT INTO car VALUES
+('656565656', 'MINI', 'Cooper', '1998', '666666666');
+INSERT INTO car VALUES
+('656565658', 'HATCHBACK', 'skyline', '1998', '666666666');
+INSERT INTO car VALUES
+('656565654', 'RANGEROVER', '4wd', '1998', '666666666');
+INSERT INTO car VALUES
+('653565654', 'FORD', 'lasers', '1998', '555555555');
+
 
 
 CREATE TABLE appointment
        (pickup_time TIMESTAMP NOT NULL,
         ap_id CHAR(9) PRIMARY KEY,
         time_booked_for TIMESTAMP,
-        ap_date DATE
+        ap_date DATE,
+        car_id CHAR(9) references car(car_id) 
         );
 
 INSERT INTO appointment VALUES
        (TO_TIMESTAMP('10-SEP-0214:10:10.123000','DD-MON-RRHH24:MI:SS.FF'), '555555555',
          TO_TIMESTAMP('10-SEP-0214:10:32.123000','DD-MON-RRHH24:MI:SS.FF'),
-         TO_DATE('25-12-2015','DD-MM-YYYY'));
+         TO_DATE('25-12-2015','DD-MM-YYYY'), '656565656');
 
 
 
@@ -135,21 +152,7 @@ INSERT INTO transactions VALUES
 (TO_DATE('19-07-1995','DD-MM-YYYY'), 'CH', 1200.80,983642314 ,'888888883');
 
 
-CREATE TABLE car
-       (car_id CHAR(9) PRIMARY KEY,
-        make VARCHAR2(15) NOT NULL,
-        model VARCHAR2(15),
-        mk_year VARCHAR2(15),
-		c_id CHAR(9) REFERENCES customer(c_id));
 
-INSERT INTO car VALUES
-       ('656565656', 'MINI', 'Cooper', '1998', '666666666');
-INSERT INTO car VALUES
-       ('656565658', 'HATCHBACK', 'skyline', '1998', '666666666');
-INSERT INTO car VALUES
-       ('656565654', 'RANGEROVER', '4wd', '1998', '666666666');
-INSERT INTO car VALUES
-       ('653565654', 'FORD', 'lasers', '1998', '555555555');
 
 
 CREATE TABLE manages
