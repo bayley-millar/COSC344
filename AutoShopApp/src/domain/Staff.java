@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author rstorr
  */
-public class Staff {
+public class Staff implements Comparable<Staff>{
     private int staffId;
     private String address;
     private String dateOfBirth;
@@ -20,8 +20,12 @@ public class Staff {
     private String lastName;
     private int phoneNumber;
     private ArrayList<Integer> partsOrderedId; 
+    
+    public Staff(){}
 
-    public Staff(int staffId, String address, String dateOfBirth, int salary, String firstName, String lastName, int phoneNumber, ArrayList<Integer> partsOrderedId) {
+    public Staff(int staffId, String address, String dateOfBirth,
+            int salary, String firstName, String lastName,
+            int phoneNumber, ArrayList<Integer> partsOrderedId) {
         this.staffId = staffId;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
@@ -94,6 +98,19 @@ public class Staff {
 
     public void setPartsOrderedId(ArrayList<Integer> partsOrderedId) {
         this.partsOrderedId = partsOrderedId;
+    }
+
+    @Override
+    public int compareTo(Staff other) {
+        if (this.salary < other.salary) {
+	    return -1;
+	}
+
+	if (this.salary > other.salary) {
+	    return 1;
+	}
+	
+        return 0;
     }
     
     

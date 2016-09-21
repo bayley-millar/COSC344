@@ -7,6 +7,7 @@
 
 
 
+import domain.Staff;
 import java.util.*;
 import java.sql.*;
 
@@ -60,12 +61,12 @@ public class EmployeeSalary {
 
 	    // Create an array list and put the data into it.
 	    // EmployeeData holds one row.
-	    List<EmployeeData> table = new ArrayList<EmployeeData>();
+	    List<Staff> table = new ArrayList<>();
 	    while (result.next()) {
-		EmployeeData row = new EmployeeData(
-					result.getString("s_fname"),
-					result.getString("s_lname"),
-					result.getInt("salary"));
+		Staff row = new Staff();
+                row.setFirstName(result.getString("s_fname"));
+                row.setLastName(result.getString("s_lname"));
+                row.setSalary(Integer.valueOf(result.getString("salary")));
 		table.add(row);
 	    }
 
@@ -74,7 +75,7 @@ public class EmployeeSalary {
 
 	    // Output the sorted data (no real formatting).
 	    System.out.println();
-	    for (EmployeeData employee : table) {
+	    for (Staff employee : table) {
 		System.out.println(employee);
 	    }
 	    System.out.println();
