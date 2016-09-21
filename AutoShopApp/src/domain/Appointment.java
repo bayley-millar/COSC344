@@ -14,10 +14,19 @@ public class Appointment {
     private int id;
     private String dropOffTime;
     private String dropOffDate;
-    private int carId;
+    private String carId;
     private String workToDo;
 
-    public Appointment(String pickupTime, int id, String dropOffTime, String dropOffDate, int carId, String workToDo) {
+    /**
+     *
+     * @param pickupTime
+     * @param id
+     * @param dropOffTime
+     * @param dropOffDate
+     * @param carId
+     * @param workToDo
+     */
+    public Appointment(String pickupTime, int id, String dropOffTime, String dropOffDate, String carId, String workToDo) {
         this.pickupTime = pickupTime;
         this.id = id;
         this.dropOffTime = dropOffTime;
@@ -58,11 +67,11 @@ public class Appointment {
         this.dropOffDate = dropOffDate;
     }
 
-    public int getCarId() {
+    public String getCarId() {
         return carId;
     }
 
-    public void setCarId(int carId) {
+    public void setCarId(String carId) {
         this.carId = carId;
     }
 

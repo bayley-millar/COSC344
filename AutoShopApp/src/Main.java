@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import GUI.MainMenu;
 
 /**
  *
@@ -15,6 +16,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        MainMenu menu = new MainMenu();
+        menu.setVisible(true);
         new EmployeeSalary().printSalaries();
     }
     

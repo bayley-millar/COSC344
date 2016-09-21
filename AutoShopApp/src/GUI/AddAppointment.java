@@ -3,7 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package GUI;
+
+
+import Network.JDBCConnection;
+import domain.Appointment;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -94,6 +103,11 @@ public class AddAppointment extends javax.swing.JFrame {
         });
 
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Car ID");
 
@@ -194,12 +208,38 @@ public class AddAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDropOffDateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        final String carID = txtCarId.getText();
+        final String pickUpTime = txtPickUpTime.getText();
+        final String dropOffTime = txtDropOffTime.getText();
+        final String dropOffDate = txtDropOffDate.getText();
+        final String workToDo = txtWorkToDo.getText();
+        
+        
+        
+        final Appointment appointment = new Appointment(pickUpTime, 123456789,
+                dropOffTime, dropOffDate, carID, workToDo);
+        
+        final JDBCConnection conn = new JDBCConnection();
+        final boolean result = conn.executeUpdateSQL(
+                    "MERGE into appointment (TOpickup_time,"
+                            + " ap_id, time_booked_for, ap_date,"
+                            + " car_id) VALUES (" +
+                            appointment.getPickupTime() + "," +
+                            appointment.getId()+ "," +
+                            appointment.getDropOffTime()+ "," +
+                            appointment.getDropOffDate()+ "," +
+                            appointment.getCarId()+ ");");
+        
+        System.out.println(result);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCarIdActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments

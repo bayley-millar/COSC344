@@ -1,12 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-
-
+import Network.JDBCConnection;
 import domain.Staff;
 import java.util.*;
 import java.sql.*;
@@ -36,12 +28,6 @@ public class EmployeeSalary {
         }
 
 	    Collections.sort(table);
-
-	    System.out.println();
-	    for (Staff employee : table) {
-		System.out.println(employee);
-	    }
-	    System.out.println();
     }
 }
 
