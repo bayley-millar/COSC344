@@ -11,15 +11,14 @@ package domain;
  */
 public class Appointment {
     private String pickupTime;
-    private int id;
     private String dropOffTime;
     private String dropOffDate;
-    private int carId;
+    private String carId;
     private String workToDo;
 
-    public Appointment(String pickupTime, int id, String dropOffTime, String dropOffDate, int carId, String workToDo) {
+    public Appointment(String pickupTime,
+            String dropOffTime, String dropOffDate, String carId, String workToDo) {
         this.pickupTime = pickupTime;
-        this.id = id;
         this.dropOffTime = dropOffTime;
         this.dropOffDate = dropOffDate;
         this.carId = carId;
@@ -32,14 +31,6 @@ public class Appointment {
 
     public void setPickupTime(String pickupTime) {
         this.pickupTime = pickupTime;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDropOffTime() {
@@ -58,11 +49,11 @@ public class Appointment {
         this.dropOffDate = dropOffDate;
     }
 
-    public int getCarId() {
+    public String getCarId() {
         return carId;
     }
 
-    public void setCarId(int carId) {
+    public void setCarId(String carId) {
         this.carId = carId;
     }
 

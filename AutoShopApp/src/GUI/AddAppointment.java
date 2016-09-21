@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package GUI;
+
+import domain.Appointment;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author rstorr
  */
 public class AddAppointment extends javax.swing.JFrame {
+    private Appointment appointment;
 
     /**
      * Creates new form Add_appointment
@@ -94,6 +98,11 @@ public class AddAppointment extends javax.swing.JFrame {
         });
 
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Car ID");
 
@@ -114,7 +123,7 @@ public class AddAppointment extends javax.swing.JFrame {
                 .addComponent(btnCancel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 62, Short.MAX_VALUE)
+                .addGap(0, 69, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -194,12 +203,28 @@ public class AddAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDropOffDateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        try { 
+        final String carID = txtCarId.getText();
+        final String dropOffDate = txtDropOffDate.getText();
+        final String dropOffTime = txtDropOffTime.getText();
+        final String pickUpTime = txtPickUpTime.getText();
+        final String workToDo = txtWorkToDo.getText();
+        
+        appointment = new Appointment(pickUpTime, dropOffTime,
+                dropOffDate, carID, workToDo);
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCarIdActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
