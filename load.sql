@@ -14,31 +14,32 @@ DROP TABLE customer;
 
 
 CREATE TABLE customer
-       (c_fname VARCHAR2(15) NOT NULL,
+       (c_id CHAR(9) PRIMARY KEY,
+        c_fname VARCHAR2(15) NOT NULL,
         c_lname VARCHAR2(15) NOT NULL,
         c_address VARCHAR2(30),
-        c_gender CHAR,
-        c_id CHAR(9) PRIMARY KEY);
+        c_gender CHAR
+        );
 
 INSERT INTO customer VALUES
-       ('Bilbo', 'Baggins', 'Hobbit Hole 4a', 'M', '666666666');
+       ('666666666','Bilbo', 'Baggins', 'Hobbit Hole 4a', 'M' );
 
 INSERT INTO customer VALUES
-       ('Clark', 'Kent', 'Krypton', 'M', '111111111');
+       ('111111111','Clark', 'Kent', 'Krypton', 'M');
 
 INSERT INTO customer VALUES
-       ('Helen', 'Clark', '1b Mount Eden Road, Auckland', 'F', '555555555');
+       ('555555555','Helen', 'Clark', '1b Mount Eden Road, Auckland', 'F');
 
 INSERT INTO customer VALUES
-       ('BC', 'Bass', '125 BC Street', 'M', '999999999');
+       ('999999999','BC', 'Bass', '125 BC Street', 'M');
 
 INSERT INTO customer VALUES
-       ('Wendy', 'McDonalds', '898 Curlyhoods Road, Otara', 'F', '444444444')
+       ('444444444','Wendy', 'McDonalds', '898 Curlyhoods Road, Otara', 'F')
 
 CREATE TABLE staff
-       (s_fname VARCHAR2(15) NOT NULL,
+       (s_id CHAR(9) PRIMARY KEY,
+        s_fname VARCHAR2(15) NOT NULL,
         s_lname VARCHAR2(15) NOT NULL,
-        s_id CHAR(9) PRIMARY KEY,
         salary NUMBER(6),
         s_address VARCHAR2(30),
 	date_of_birth DATE,
@@ -47,23 +48,23 @@ CREATE TABLE staff
 
 
 INSERT INTO staff VALUES
-       ('Reuben', 'Poor','987654321', 100, '123 BC Street', TO_DATE('12-12-1996',
+       ('987654321','Reuben', 'Poor', 100, '123 BC Street', TO_DATE('12-12-1996',
         'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Joe', 'Penn','123123123', 900000, '698 Mary Lane', TO_DATE('12-12-1964',
+       ('123123123', 'Joe', 'Penn', 900000, '698 Mary Lane', TO_DATE('12-12-1964',
         'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Bayley', 'Pillar','875645342', 850000, 'Invercargill', TO_DATE('23-12-1970',
+       ('875645342','Bayley', 'Pillar', 850000, 'Invercargill', TO_DATE('23-12-1970',
         'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('Blake', 'Brah','777654421', 10, '1 Fivefoot-fiveinch Street', TO_DATE('23-12-1999',
+       ('777654421','Blake', 'Brah', 10, '1 Fivefoot-fiveinch Street', TO_DATE('23-12-1999',
         'DD-MM-YYYY'), 20);
 
 INSERT INTO staff VALUES
-       ('George', 'F-Skyscraper','987000001', 50000, 'The Moon', TO_DATE('25-11-1980',
+       ('987000001','George', 'F-Skyscraper', 50000, 'The Moon', TO_DATE('25-11-1980',
         'DD-MM-YYYY'), 20);
 
 
@@ -109,14 +110,14 @@ INSERT INTO car VALUES
 
 
 CREATE TABLE appointment
-       (pickup_time TIMESTAMP NOT NULL,
-        ap_id CHAR(9) PRIMARY KEY,
+       (ap_id CHAR(9) PRIMARY KEY,
+        pickup_time TIMESTAMP NOT NULL,
         time_booked_for TIMESTAMP,
         car_id CHAR(9) references car(car_id) 
         );
 
 INSERT INTO appointment VALUES
-       (TO_TIMESTAMP('10-SEP-0214:10:10.123000','DD-MON-RRHH24:MI:SS.FF'), '555555555',
+       ( '555555555',TO_TIMESTAMP('10-SEP-0214:10:10.123000','DD-MON-RRHH24:MI:SS.FF'),
          TO_TIMESTAMP('10-SEP-0214:10:32.123000','DD-MON-RRHH24:MI:SS.FF'), '656565656');
 
 
