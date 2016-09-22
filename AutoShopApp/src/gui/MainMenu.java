@@ -44,6 +44,11 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         btnViewAppointments.setText("View Appointments");
+        btnViewAppointments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewAppointmentsActionPerformed(evt);
+            }
+        });
 
         btnSomeReport.setText("Some Report");
 
@@ -99,6 +104,10 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnAddAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAppointmentActionPerformed
         new AddAppointment().setVisible(true);
     }//GEN-LAST:event_btnAddAppointmentActionPerformed
+
+    private void btnViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAppointmentsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewAppointmentsActionPerformed
 
     /**
      * @param args the command line arguments
