@@ -112,12 +112,15 @@ CREATE TABLE appointment
        (pickup_time TIMESTAMP NOT NULL,
         ap_id CHAR(9) PRIMARY KEY,
         time_booked_for TIMESTAMP,
+        ap_date DATE,
         car_id CHAR(9) references car(car_id) 
         );
 
 INSERT INTO appointment VALUES
        (TO_TIMESTAMP('10-SEP-0214:10:10.123000','DD-MON-RRHH24:MI:SS.FF'), '555555555',
-         TO_TIMESTAMP('10-SEP-0214:10:32.123000','DD-MON-RRHH24:MI:SS.FF'), '656565656');
+         TO_TIMESTAMP('10-SEP-0214:10:32.123000','DD-MON-RRHH24:MI:SS.FF'),
+         TO_DATE('25-12-2015','DD-MM-YYYY'), '656565656');
+         
 
 
 

@@ -12,6 +12,6 @@ WHERE part_id= :OLD.p_id;
 ELSE -- deleting
 UPDATE part
 SET total_cost = total_cost - :OLD.quantity * cost
-WHERE part_id = :OLD.p_id
+WHERE part_id = :OLD.p_id;
 END IF;
 END;
