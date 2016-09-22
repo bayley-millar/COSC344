@@ -70,23 +70,23 @@ CREATE TABLE staff
 CREATE TABLE account
 (acc_id CHAR(9) PRIMARY KEY             NOT NULL,
 ca_id CHAR(9) REFERENCES customer(c_id) NOT NULL,
-balance FLOAT,
+balance FLOAT DEFAULT (0.0),
 last_visit DATE
 );
         INSERT INTO account VALUES
-        ('888888888', '666666666', 543.89, TO_DATE('14-04-1999',
+        ('888888888', '666666666', 0.0, TO_DATE('14-04-1999',
         'DD-MM-YYYY'));
 
         INSERT INTO account VALUES
-        ('888888881', '111111111', 5.89, TO_DATE('23-09-2015',
+        ('888888881', '111111111', 0.0, TO_DATE('23-09-2015',
         'DD-MM-YYYY'));
 
         INSERT INTO account VALUES
-        ('888888882', '555555555', 89.50, TO_DATE('18-10-2015',
+        ('888888882', '555555555', 0.0, TO_DATE('18-10-2015',
         'DD-MM-YYYY'));
 
         INSERT INTO account VALUES
-        ('888888883', '999999999', 1205.80, TO_DATE('01-01-2015',
+        ('888888883', '999999999', 0.0, TO_DATE('01-01-2015',
         'DD-MM-YYYY'));
 
 
@@ -95,16 +95,17 @@ CREATE TABLE car
 make VARCHAR2(15) NOT NULL,
 model VARCHAR2(15),
 mk_year VARCHAR2(15),
-c_id CHAR(9) REFERENCES customer(c_id)  NOT NULL) ;
+c_id CHAR(9) REFERENCES customer(c_id)  NOT NULL,
+total_appointment INT DEFAULT(0));
 
      INSERT INTO car VALUES
-     ('656565656', 'MINI', 'Cooper', '1998', '666666666');
+     ('656565656', 'MINI', 'Cooper', '1998', '666666666', 0);
      INSERT INTO car VALUES
-     ('656565658', 'HATCHBACK', 'skyline', '1998', '666666666');
+     ('656565658', 'HATCHBACK', 'skyline', '1998', '666666666', 0);
      INSERT INTO car VALUES
-     ('656565654', 'RANGEROVER', '4wd', '1998', '666666666');
+     ('656565654', 'RANGEROVER', '4wd', '1998', '666666666', 0);
      INSERT INTO car VALUES
-     ('653565654', 'FORD', 'lasers', '1998', '555555555');
+     ('653565654', 'FORD', 'lasers', '1998', '555555555', 0);
 
 
 
@@ -114,6 +115,8 @@ CREATE TABLE appointment
         drop_off_time TIMESTAMP      NOT NULL,
         car_id CHAR(9) references car(car_id) NOT NULL 
         );
+
+@trig.sql;
 
         INSERT INTO appointment VALUES
         ('555555555',TO_TIMESTAMP('10-SEP-0214:10:10.123000','DD-MON-RRHH24:MI:SS.FF'),
@@ -140,6 +143,8 @@ CREATE TABLE transactions
         account_ID CHAR(9) REFERENCES account(acc_id) NOT NULL,
         PRIMARY KEY(account_ID, transaction_no)
         );
+
+@trig1.sql
 
 INSERT INTO transactions VALUES
 (TO_DATE('14-02-1998','DD-MM-YYYY'), 'CH', 1200.80,983642313 ,'888888888');

@@ -1,17 +1,17 @@
-CREATE OR REPLACE TRIGGER part_total_cost
-AFTER INSERT OR UPDATE OR DELETE OF quantity ON part
+
+CREATE OR REPLACE TRIGGER total_appointments
+AFTER INSERT OR UPDATE OR DELETE OF car_id ON appointment
+FOR EACH ROW
 BEGIN
-IF INSERTING THEN
-UPDATE part
-SET total_cost = quantity + :NEW.quantity * cost
-WHERE part_id= :NEW.p_id;
-ELSEIF UPDATING THEN
-UPDATE part
-SET total_cost = total_cost + :NEW.quantity - :OLD.quantity * cost
-WHERE part_id= :OLD.p_id;
-ELSE -- deleting
-UPDATE part
-SET total_cost = total_cost - :OLD.quantity * cost
-WHERE part_id = :OLD.p_id;
-END IF;
+  IF INSERTING THEN
+    UPDATE car
+      SET total_appointment = total_appointment + 1
+        WHERE car_id = :NEW.car_id;
+
+  ELSE -- deleting
+    UPDATE car
+      SET total_appointment = total_appointment - 1
+        WHERE car_id = :OLD.car_id;
+  END IF;
 END;
+/

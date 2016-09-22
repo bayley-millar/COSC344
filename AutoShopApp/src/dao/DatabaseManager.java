@@ -22,9 +22,7 @@ public class DatabaseManager {
     public Collection<Appointment> getAppointments() {
         final ArrayList<Appointment> appointments = new ArrayList<>();
         final String appointmentSql =
-                "SELECT ap_id, pickup_time, drop_off_time, car_id,"
-                + " work_to_do FROM appointment, appointment_work_to_do"
-                + " WHERE ap_id = w_ap_id;";
+            "select ap_id, pickup_time, drop_off_time, car_id, work_to_do from appointment, appointment_work_to_do where ap_id = w_ap_id;";
         try {
             final PreparedStatement stmt = conn.createPreparedStatement(appointmentSql);
             final ResultSet rs = stmt.executeQuery();

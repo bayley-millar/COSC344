@@ -1,0 +1,15 @@
+./AutoShopApp/src/network/JDBCConnection.java
+./AutoShopApp/src/util/TimeUtil.java
+./AutoShopApp/src/util/SimpleListModel.java
+./AutoShopApp/src/gui/AddAppointment.java
+./AutoShopApp/src/gui/MainMenu.java
+./AutoShopApp/src/gui/EmployeeReport.java
+./AutoShopApp/src/gui/ViewAppointments.java
+./AutoShopApp/src/dao/DatabaseManager.java
+./AutoShopApp/src/main/Main.java
+./AutoShopApp/src/domain/Customer.java
+./AutoShopApp/src/domain/Part.java
+./AutoShopApp/src/domain/Staff.java
+./AutoShopApp/src/domain/Account.java
+./AutoShopApp/src/domain/Appointment.java
+./AutoShopApp/src/EmployeeSalary.java
