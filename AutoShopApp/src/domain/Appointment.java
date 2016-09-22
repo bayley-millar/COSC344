@@ -5,64 +5,62 @@
  */
 package domain;
 
+import util.TimeUtil;
+import java.sql.Timestamp;
+
+
 /**
  *
  * @author rstorr
  */
 public class Appointment {
-    private String pickupTime;
-    private int id;
-    private String dropOffTime;
-    private String dropOffDate;
-    private int carId;
+    private Timestamp pickupTime;
+    private String id;
+    private Timestamp dropOffTime;
+    private String carId;
     private String workToDo;
 
-    public Appointment(String pickupTime, int id, String dropOffTime, String dropOffDate, int carId, String workToDo) {
-        this.pickupTime = pickupTime;
+    public Appointment(String pickupTime,
+            String id,
+            String dropOffTime,
+            String carId,
+            String workToDo) {
+        this.pickupTime = TimeUtil.getTimeStamp(pickupTime);
         this.id = id;
-        this.dropOffTime = dropOffTime;
-        this.dropOffDate = dropOffDate;
+        this.dropOffTime = TimeUtil.getTimeStamp(dropOffTime);;
         this.carId = carId;
         this.workToDo = workToDo;
     }
 
-    public String getPickupTime() {
+    public Timestamp getPickupTime() {
         return pickupTime;
     }
 
     public void setPickupTime(String pickupTime) {
-        this.pickupTime = pickupTime;
+        this.pickupTime = TimeUtil.getTimeStamp(pickupTime);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getDropOffTime() {
+    public Timestamp getDropOffTime() {
         return dropOffTime;
     }
 
     public void setDropOffTime(String dropOffTime) {
-        this.dropOffTime = dropOffTime;
+        this.dropOffTime = TimeUtil.getTimeStamp(dropOffTime);
     }
 
-    public String getDropOffDate() {
-        return dropOffDate;
-    }
-
-    public void setDropOffDate(String dropOffDate) {
-        this.dropOffDate = dropOffDate;
-    }
-
-    public int getCarId() {
+    public String getCarId() {
         return carId;
     }
 
-    public void setCarId(int carId) {
+    public void setCarId(String carId) {
         this.carId = carId;
     }
 
@@ -72,8 +70,5 @@ public class Appointment {
 
     public void setWorkToDo(String workToDo) {
         this.workToDo = workToDo;
-    }
-    
-    
-    
+    }   
 }

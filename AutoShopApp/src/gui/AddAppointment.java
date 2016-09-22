@@ -5,6 +5,13 @@
  */
 package gui;
 
+import domain.Appointment;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import network.JDBCConnection;
+
 /**
  *
  * @author rstorr
@@ -16,10 +23,9 @@ public class AddAppointment extends javax.swing.JFrame {
      */
     public AddAppointment() {
         initComponents();
-        this.setName("productDialog");  
-        
+        this.setName("productDialog");
+
         txtCarId.setName("txtId");
-        txtDropOffDate.setName("txtDropOffDate");
         txtDropOffTime.setName("txtDrppOffTime");
         txtPickUpTime.setName("txtPickupTime");
         txtWorkToDo.setName("txtWorkToDo");
@@ -194,7 +200,30 @@ public class AddAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDropOffDateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        try {
+            final JDBCConnection conn = new JDBCConnection();
+            final String carID = txtCarId.getText();
+            final String pickUpTime = txtPickUpTime.getText();
+            final String dropOffTime = txtDropOffTime.getText();
+            final String workToDo = txtWorkToDo.getText();
+            final String id = "823792843"; //wtf??
+           
+            final Appointment a = new Appointment(pickUpTime, id,
+                    dropOffTime, carID, workToDo);
+            
+            PreparedStatement stmt = conn.createPreparedStatement(
+                    "merge into products (id, name, description, category, price,"
+                            + "quantity) values (?,?,?,?,?,?)");
+            
+            stmt.setTimestamp(1, a.getPickupTime());
+            stmt.setString(2, a.getId());
+            stmt.setTimestamp(3, a.getDropOffTime());
+            stmt.setString(4, a.getCarId());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AddAppointment.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarIdActionPerformed

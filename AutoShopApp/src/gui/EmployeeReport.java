@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package gui;
 
 /**
  *
@@ -151,26 +151,11 @@ public class EmployeeReport extends javax.swing.JFrame {
     }//GEN-LAST:event_list1ActionPerformed
 
     private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
-        if (!listProducts.isSelectionEmpty()) {
-            final Product p = (Product) listProducts.getSelectedValue();
-            int result = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to delete " + p.getName() +
-                " ?", "Delete Product",
-                JOptionPane.OK_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION) {
-                productStore.deleteProduct(p);
-                productsListModel.updateItems(productStore.getProducts());
-            }
-        }
+        //doo stuff
     }//GEN-LAST:event_btnDeleteProductActionPerformed
 
     private void btnEditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProductActionPerformed
-        if (!listProducts.isSelectionEmpty()){
-            final Product p = (Product) listProducts.getSelectedValue();
-            new ProductEditor(this, true, p, productStore)
-            .setVisible(true);
-            productsListModel.updateItems(productStore.getProducts());
-        }
+       //doo stuff
     }//GEN-LAST:event_btnEditProductActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
