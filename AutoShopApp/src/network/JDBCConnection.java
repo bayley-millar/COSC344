@@ -19,8 +19,8 @@ public class JDBCConnection {
     private Connection connection;
 
     public JDBCConnection() {
-        final String user = "jbenn";
-        final String pass = "cs1790302";
+        final String user = "bmillar";
+        final String pass = "bayleyMillar";
         final String host = "silver";
         final String url = "jdbc:oracle:thin:@" + host + ":1527:cosc344";
 
