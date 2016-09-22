@@ -5,25 +5,26 @@
  */
 package gui;
 
+import dao.DatabaseManager;
 import domain.Appointment;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import network.JDBCConnection;
 
 /**
  *
  * @author rstorr
  */
 public class AddAppointment extends javax.swing.JFrame {
+    
+    private final DatabaseManager db;
 
     /**
      * Creates new form Add_appointment
+     * @param db
      */
-    public AddAppointment() {
+    public AddAppointment(DatabaseManager db) {
         initComponents();
         this.setName("productDialog");
+        
+        this.db = db;
 
         txtCarId.setName("txtId");
         txtDropOffTime.setName("txtDrppOffTime");
@@ -100,6 +101,11 @@ public class AddAppointment extends javax.swing.JFrame {
         });
 
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Car ID");
 
@@ -200,8 +206,7 @@ public class AddAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDropOffDateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        try {
-            final JDBCConnection conn = new JDBCConnection();
+        
             final String carID = txtCarId.getText();
             final String pickUpTime = txtPickUpTime.getText();
             final String dropOffTime = txtDropOffTime.getText();
@@ -211,60 +216,16 @@ public class AddAppointment extends javax.swing.JFrame {
             final Appointment a = new Appointment(pickUpTime, id,
                     dropOffTime, carID, workToDo);
             
-            PreparedStatement stmt = conn.createPreparedStatement(
-                    "merge into products (id, name, description, category, price,"
-                            + "quantity) values (?,?,?,?,?,?)");
-            
-            stmt.setTimestamp(1, a.getPickupTime());
-            stmt.setString(2, a.getId());
-            stmt.setTimestamp(3, a.getDropOffTime());
-            stmt.setString(4, a.getCarId());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(AddAppointment.class.getName()).
-                    log(Level.SEVERE, null, ex);
-        }
+            db.addAppointment(a);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCarIdActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddAppointment().setVisible(true);
-            }
-        });
-    }
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

@@ -31,6 +31,18 @@ public class Appointment {
         this.carId = carId;
         this.workToDo = workToDo;
     }
+    
+    public Appointment(Timestamp pickupTime,
+            String id,
+            Timestamp dropOffTime,
+            String carId,
+            String workToDo) {
+        this.pickupTime = pickupTime;
+        this.id = id;
+        this.dropOffTime = dropOffTime;
+        this.carId = carId;
+        this.workToDo = workToDo;
+    }
 
     public Timestamp getPickupTime() {
         return pickupTime;
