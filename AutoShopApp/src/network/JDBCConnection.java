@@ -1,6 +1,9 @@
+package network;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class JDBCConnection {
 
-    Connection connection;
+    private Connection connection;
 
     public JDBCConnection() {
         final String user = "jbenn";
@@ -23,11 +26,20 @@ public class JDBCConnection {
 
         try {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-
             connection = DriverManager.getConnection(url, user, pass);
 
         } catch (SQLException e) {
             quit(e.getMessage());
+        }
+    }
+    
+    public PreparedStatement createPreparedStatement(String sql){
+        try {
+            return connection.prepareStatement(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCConnection.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
@@ -41,19 +53,6 @@ public class JDBCConnection {
                     .log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-    
-    public boolean executeUpdateSQL(String sql) {
-        Statement stmt;
-        try {
-            stmt = connection.createStatement();
-            stmt.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(JDBCConnection.class.getName())
-                    .log(Level.SEVERE, null, ex);
-            return false;
-        }
-        return true;
     }
 
     public void closeConnection() {
