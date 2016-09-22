@@ -89,9 +89,10 @@ public class DatabaseManager {
 
     public void addAppointment(Appointment a) {
         final String appointmentSql = "MERGE INTO appointment"
-                + " (ap_id, pickup_time, drop_off_time, car_id);";
+                + " (ap_id, pickup_time, drop_off_time, car_id)"
+                + " VALUES (?,?,?,?);";
         final String workToDoSql = "MERGE INTO appointment_work_to_do"
-                + " (w_ap_id, work_to_do);";
+                + " (w_ap_id, work_to_do) VALUES (?,?);";
         try {
             final PreparedStatement appStmt
                     = conn.createPreparedStatement(appointmentSql);

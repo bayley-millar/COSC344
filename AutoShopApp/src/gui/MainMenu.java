@@ -109,7 +109,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddAppointmentActionPerformed
 
     private void btnViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAppointmentsActionPerformed
-        // TODO add your handling code here:
+        new ViewAppointments(db).setVisible(true);
     }//GEN-LAST:event_btnViewAppointmentsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
