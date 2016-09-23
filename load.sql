@@ -111,16 +111,17 @@ total_appointment INT DEFAULT(0));
 
 CREATE TABLE appointment
        (ap_id CHAR(9) PRIMARY KEY       NOT NULL,
-        pickup_time TIMESTAMP           NOT NULL,
-        drop_off_time TIMESTAMP      NOT NULL,
+        pickup_date DATE           NOT NULL,
+        drop_off_date DATE      NOT NULL,
         car_id CHAR(9) references car(car_id) NOT NULL 
         );
 
 @trig.sql;
 
         INSERT INTO appointment VALUES
-        ('555555555',TO_TIMESTAMP('10-SEP-0214:10:10.123000','DD-MON-RRHH24:MI:SS.FF'),
-         TO_TIMESTAMP('10-SEP-0214:10:32.123000','DD-MON-RRHH24:MI:SS.FF'), '656565656');
+        ('555555555',
+        TO_DATE('25-11-1980', 'DD-MM-YYYY'),TO_DATE('25-11-1980', 'DD-MM-YYYY') ,
+        '656565656');
 
 
 
