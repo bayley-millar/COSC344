@@ -124,6 +124,7 @@ CREATE TABLE appointment
 
 
 
+
 CREATE TABLE parts
        (part_id INT PRIMARY KEY         NOT NULL,
         cost FLOAT,
@@ -155,6 +156,9 @@ INSERT INTO transactions VALUES
 INSERT INTO transactions VALUES
 (TO_DATE('19-07-1995','DD-MM-YYYY'), 'CH', 1200.80,983642314 ,'888888883');
 
+
+INSERT INTO transactions VALUES
+(TO_DATE('19-07-1995','DD-MM-YYYY'), 'CH', 1100.80, 983642315 ,'88888883');
 
 
 
