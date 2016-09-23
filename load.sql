@@ -124,6 +124,7 @@ CREATE TABLE appointment
 
 
 
+
 CREATE TABLE parts
        (part_id INT PRIMARY KEY         NOT NULL,
         cost FLOAT,
