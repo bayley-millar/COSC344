@@ -6,7 +6,7 @@
 package domain;
 
 import util.TimeUtil;
-import java.sql.Date;
+import oracle.sql.DATE;
 
 
 /**
@@ -14,9 +14,9 @@ import java.sql.Date;
  * @author rstorr
  */
 public class Appointment {
-    private Date pickupDate;
+    private DATE pickupDate;
     private String id;
-    private Date dropOffDate;
+    private DATE dropOffDate;
     private String carId;
     private String workToDo;
 
@@ -32,9 +32,9 @@ public class Appointment {
         this.workToDo = workToDo;
     }
     
-    public Appointment(Date pickupTime,
+    public Appointment(DATE pickupTime,
             String id,
-            Date dropOffTime,
+            DATE dropOffTime,
             String carId,
             String workToDo) {
         this.pickupDate = pickupTime;
@@ -44,7 +44,7 @@ public class Appointment {
         this.workToDo = workToDo;
     }
 
-    public Date getPickupDate() {
+    public DATE getPickupDate() {
         return pickupDate;
     }
 
@@ -60,7 +60,7 @@ public class Appointment {
         this.id = id;
     }
 
-    public Date getDropOffDate() {
+    public DATE getDropOffDate() {
         return dropOffDate;
     }
 
