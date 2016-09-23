@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import network.JDBCConnection;
+import oracle.sql.DATE;
 
 /**
  *
@@ -29,8 +30,8 @@ public class DatabaseManager {
 
             while (rs.next()) {
                 final String id = rs.getString("ap_id");
-                final Date pickupDate = rs.getDate("pickup_date");
-                final Date dropOffDate = rs.getDate("drop_off_date");
+                final DATE pickupDate = (DATE) rs.getObject("pickup_date");
+                final DATE dropOffDate = (DATE) rs.getObject("drop_off_date");
                 final String carId = rs.getString("car_id");
                 final String workToDo = rs.getString("work_to_do");
 
@@ -65,8 +66,8 @@ public class DatabaseManager {
             
             if (rs.next()) {
                 final String id = rs.getString("ap_id");
-                final Date pickupDate = rs.getDate("pickup_date");
-                final Date dropOffDate = rs.getDate("drop_off_date");
+                final DATE pickupDate = (DATE) rs.getObject("pickup_date");
+                final DATE dropOffDate = (DATE) rs.getObject("drop_off_date");
                 final String carId = rs.getString("car_id");
                 final String workToDo = rs.getString("work_to_do");
 
@@ -95,8 +96,8 @@ public class DatabaseManager {
                     = conn.createPreparedStatement(workToDoSql);
             
             appStmt.setString(1, a.getId());
-            appStmt.setDate(2, a.getPickupDate());
-            appStmt.setDate(3, a.getDropOffDate());
+            appStmt.setObject(2, a.getPickupDate());
+            appStmt.setObject(3, a.getDropOffDate());
             appStmt.setString(4, a.getCarId());
             
             workStmt.setString(1, a.getId());
