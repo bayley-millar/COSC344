@@ -25,9 +25,9 @@ public class Appointment {
             String dropOffDate,
             String carId,
             String workToDo) {
-        this.pickupDate = pickupDate;
+        this.pickupDate = TimeUtil.getDate(pickupDate);
         this.id = id;
-        this.dropOffDate = dropOffDate;
+        this.dropOffDate = TimeUtil.getDate(dropOffDate);
         this.carId = carId;
         this.workToDo = workToDo;
     }
@@ -49,7 +49,7 @@ public class Appointment {
     }
 
     public void setPickupDate(String pickupDate) {
-        this.pickupDate = pickupDate;
+        this.pickupDate = TimeUtil.getDate(pickupDate);
     }
 
     public String getId() {
@@ -65,7 +65,7 @@ public class Appointment {
     }
 
     public void setDropOffDate(String dropOffDate) {
-        this.dropOffDate = dropOffDate;
+        this.dropOffDate = TimeUtil.getDate(dropOffDate);
     }
 
     public String getCarId() {

@@ -1,7 +1,6 @@
 package util;
 
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,12 +16,13 @@ import java.util.Date;
  */
 public class TimeUtil {
 
-    public static Timestamp getTimeStamp(String time) {
+    public static java.sql.Date getDate(String time) {
         try {
             SimpleDateFormat dateFormat =
-                    new SimpleDateFormat("DD-MON-RRHH24:MI:SS.FF");
-            Date parsedDate = dateFormat.parse(time);
-            return new java.sql.Timestamp(parsedDate.getTime());
+                    new SimpleDateFormat("DD-MM-YYYY");
+            Date d = dateFormat.parse(time);
+           
+            return new java.sql.Date(d.getTime());
         } catch (Exception e) {
             return null;
         }
