@@ -5,18 +5,14 @@
  */
 package domain;
 
-import util.TimeUtil;
-import oracle.sql.DATE;
-
-
 /**
  *
  * @author rstorr
  */
 public class Appointment {
-    private DATE pickupDate;
+    private String pickupDate;
     private String id;
-    private DATE dropOffDate;
+    private String dropOffDate;
     private String carId;
     private String workToDo;
 
@@ -25,31 +21,19 @@ public class Appointment {
             String dropOffDate,
             String carId,
             String workToDo) {
-        this.pickupDate = TimeUtil.getDate(pickupDate);
+        this.pickupDate = pickupDate;
         this.id = id;
-        this.dropOffDate = TimeUtil.getDate(dropOffDate);
+        this.dropOffDate = dropOffDate;
         this.carId = carId;
         this.workToDo = workToDo;
     }
     
-    public Appointment(DATE pickupTime,
-            String id,
-            DATE dropOffTime,
-            String carId,
-            String workToDo) {
-        this.pickupDate = pickupTime;
-        this.id = id;
-        this.dropOffDate = dropOffTime;
-        this.carId = carId;
-        this.workToDo = workToDo;
-    }
-
-    public DATE getPickupDate() {
+    public String getPickupDate() {
         return pickupDate;
     }
 
     public void setPickupDate(String pickupDate) {
-        this.pickupDate = TimeUtil.getDate(pickupDate);
+        this.pickupDate = pickupDate;
     }
 
     public String getId() {
@@ -60,12 +44,12 @@ public class Appointment {
         this.id = id;
     }
 
-    public DATE getDropOffDate() {
+    public String getDropOffDate() {
         return dropOffDate;
     }
 
     public void setDropOffDate(String dropOffDate) {
-        this.dropOffDate = TimeUtil.getDate(dropOffDate);
+        this.dropOffDate = dropOffDate;
     }
 
     public String getCarId() {

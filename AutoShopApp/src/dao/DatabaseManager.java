@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import network.JDBCConnection;
-import oracle.sql.DATE;
+import util.TimeUtil;
 
 /**
  *
@@ -23,22 +23,26 @@ public class DatabaseManager {
     public Collection<Appointment> getAppointments() {
         final ArrayList<Appointment> appointments = new ArrayList<>();
         final String appointmentSql =
-            "select ap_id, pickup_date, drop_off_date, car_id, work_to_do from appointment, appointment_work_to_do where ap_id = w_ap_id;";
+            "select ap_id, pickup_date, drop_off_date, car_id, work_to_do from appointment, appointment_work_to_do where ap_id = w_ap_id";
         try {
             final PreparedStatement stmt = conn.createPreparedStatement(appointmentSql);
             final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 final String id = rs.getString("ap_id");
-                final DATE pickupDate = (DATE) rs.getObject("pickup_date");
-                final DATE dropOffDate = (DATE) rs.getObject("drop_off_date");
+                final Date pickupDate = rs.getDate("pickup_date");
+                final Date dropOffDate = rs.getDate("drop_off_date");
+                final String pickupDateStr = 
+                        TimeUtil.convertStringToDate(pickupDate);
+                final String dropOffDateStr = 
+                        TimeUtil.convertStringToDate(dropOffDate);
                 final String carId = rs.getString("car_id");
                 final String workToDo = rs.getString("work_to_do");
 
                 appointments.add(new Appointment(
-                        pickupDate,
+                        pickupDateStr,
                         id,
-                        dropOffDate,
+                        dropOffDateStr,
                         carId,
                         workToDo));
             }
@@ -66,8 +70,8 @@ public class DatabaseManager {
             
             if (rs.next()) {
                 final String id = rs.getString("ap_id");
-                final DATE pickupDate = (DATE) rs.getObject("pickup_date");
-                final DATE dropOffDate = (DATE) rs.getObject("drop_off_date");
+                final String pickupDate = (String) rs.getObject("pickup_date");
+                final String dropOffDate = (String) rs.getObject("drop_off_date");
                 final String carId = rs.getString("car_id");
                 final String workToDo = rs.getString("work_to_do");
 
@@ -87,7 +91,7 @@ public class DatabaseManager {
     }
 
     public void addAppointment(Appointment a) {
-        final String appointmentSql = "INSERT INTO appointment VALUES(?,?,?,?)";
+        final String appointmentSql = "INSERT INTO appointment VALUES(?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?)";
         final String workToDoSql = "INSERT INTO appointment_work_to_do VALUES (?,?)";
         try {
             final PreparedStatement appStmt
@@ -96,12 +100,12 @@ public class DatabaseManager {
                     = conn.createPreparedStatement(workToDoSql);
             
             appStmt.setString(1, a.getId());
-            appStmt.setObject(2, a.getPickupDate());
-            appStmt.setObject(3, a.getDropOffDate());
+            appStmt.setString(2,a.getPickupDate());
+            appStmt.setString(3,a.getDropOffDate());
             appStmt.setString(4, a.getCarId());
-            
+
             workStmt.setString(1, a.getId());
-            appStmt.setString(2, a.getWorkToDo());
+            workStmt.setString(2, a.getWorkToDo());
 
             appStmt.executeUpdate();
             workStmt.executeUpdate();
