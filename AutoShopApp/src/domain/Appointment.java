@@ -6,7 +6,7 @@
 package domain;
 
 import util.TimeUtil;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 
 /**
@@ -14,42 +14,42 @@ import java.sql.Timestamp;
  * @author rstorr
  */
 public class Appointment {
-    private Timestamp pickupTime;
+    private Date pickupDate;
     private String id;
-    private Timestamp dropOffTime;
+    private Date dropOffDate;
     private String carId;
     private String workToDo;
 
-    public Appointment(String pickupTime,
+    public Appointment(String pickupDate,
             String id,
-            String dropOffTime,
+            String dropOffDate,
             String carId,
             String workToDo) {
-        this.pickupTime = TimeUtil.getTimeStamp(pickupTime);
+        this.pickupDate = pickupDate;
         this.id = id;
-        this.dropOffTime = TimeUtil.getTimeStamp(dropOffTime);;
+        this.dropOffDate = dropOffDate;
         this.carId = carId;
         this.workToDo = workToDo;
     }
     
-    public Appointment(Timestamp pickupTime,
+    public Appointment(Date pickupTime,
             String id,
-            Timestamp dropOffTime,
+            Date dropOffTime,
             String carId,
             String workToDo) {
-        this.pickupTime = pickupTime;
+        this.pickupDate = pickupTime;
         this.id = id;
-        this.dropOffTime = dropOffTime;
+        this.dropOffDate = dropOffTime;
         this.carId = carId;
         this.workToDo = workToDo;
     }
 
-    public Timestamp getPickupTime() {
-        return pickupTime;
+    public Date getPickupDate() {
+        return pickupDate;
     }
 
-    public void setPickupTime(String pickupTime) {
-        this.pickupTime = TimeUtil.getTimeStamp(pickupTime);
+    public void setPickupDate(String pickupDate) {
+        this.pickupDate = pickupDate;
     }
 
     public String getId() {
@@ -60,12 +60,12 @@ public class Appointment {
         this.id = id;
     }
 
-    public Timestamp getDropOffTime() {
-        return dropOffTime;
+    public Date getDropOffDate() {
+        return dropOffDate;
     }
 
-    public void setDropOffTime(String dropOffTime) {
-        this.dropOffTime = TimeUtil.getTimeStamp(dropOffTime);
+    public void setDropOffDate(String dropOffDate) {
+        this.dropOffDate = dropOffDate;
     }
 
     public String getCarId() {

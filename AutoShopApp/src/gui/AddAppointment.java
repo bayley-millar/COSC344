@@ -184,13 +184,13 @@ public class AddAppointment extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         
             final String carID = txtCarId.getText();
-            final String pickUpTime = txtPickUpTime.getText();
-            final String dropOffTime = txtDropOffTime.getText();
+            final String pickUpDate = txtPickUpTime.getText();
+            final String dropOffDate = txtDropOffTime.getText();
             final String workToDo = txtWorkToDo.getText();
             final String id = "823792843"; //wtf??
            
-            final Appointment a = new Appointment(pickUpTime, id,
-                    dropOffTime, carID, workToDo);
+            final Appointment a = new Appointment(pickUpDate, id,
+                    dropOffDate, carID, workToDo);
             
             db.addAppointment(a);
             dispose();
