@@ -12,7 +12,6 @@ DROP TABLE staff;
 DROP TABLE customer;
 
 
-
 CREATE TABLE customer
        (c_id CHAR(9) PRIMARY KEY        NOT NULL,
         c_fname VARCHAR2(15)            NOT NULL,
@@ -107,8 +106,6 @@ total_appointment INT DEFAULT(0));
      INSERT INTO car VALUES
      ('653565654', 'FORD', 'lasers', '1998', '555555555', 0);
 
-
-
 CREATE TABLE appointment
        (ap_id CHAR(9) PRIMARY KEY       NOT NULL,
         pickup_date DATE           NOT NULL,
@@ -116,15 +113,10 @@ CREATE TABLE appointment
         car_id CHAR(9) references car(car_id) NOT NULL 
         );
 
-@trig.sql;
-
         INSERT INTO appointment VALUES
         ('555555555',
         TO_DATE('25-11-1980', 'DD-MM-YYYY'),TO_DATE('25-11-1980', 'DD-MM-YYYY') ,
         '656565656');
-
-
-
 
 CREATE TABLE parts
        (part_id INT PRIMARY KEY         NOT NULL,
@@ -146,8 +138,6 @@ CREATE TABLE transactions
         account_ID CHAR(9) REFERENCES account(acc_id) NOT NULL,
         PRIMARY KEY(account_ID, transaction_no)
         );
-
-@trig1.sql
 
 INSERT INTO transactions VALUES
 (TO_DATE('14-02-1998','DD-MM-YYYY'), 'CH', 1200.80,983642313 ,'888888888');
@@ -233,6 +223,7 @@ PRIMARY KEY (staff_number, phone_s_id) );
         INSERT INTO staff_phone_number VALUES
         ('027892398','987000001');
 
+@trig.sql
 
 COMMIT;
 
