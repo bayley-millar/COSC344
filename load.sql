@@ -132,11 +132,12 @@ CREATE TABLE parts
         part_name VARCHAR2(30),
         description VARCHAR2(30),
         quantity INT,
-        p_app_id CHAR(9) references appointment(ap_id) NOT NULL
+        p_app_id CHAR(9) REFERENCES appointment(ap_id) NOT NULL,
+        p_staff_id CHAR(9) REFERENCES staff(s_id) NOT NULL
         );
 
         INSERT INTO parts VALUES
-       (42, 112.99, 'XXXL FEKOFF Spoiler X-WING_9', 'Rear spoiler wing', 2, '555555555');
+        (42, 112.99, 'XXXL FEKOFF Spoiler X-WING_9', 'Rear spoiler wing', 2, '555555555','123123123');
 
 CREATE TABLE transactions
        (t_date DATE,
