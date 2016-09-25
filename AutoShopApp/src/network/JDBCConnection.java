@@ -12,13 +12,20 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author reuben
+ * This class is used to make the DB connect work.
+ * We made this as a easier way of connecting to the DB
+ * for the database management class.
  */
 public class JDBCConnection {
 
     private Connection connection;
-
+    
+   
     public JDBCConnection() {
+        /**************************************** 
+        Add your server details here to login
+        *****************************************
+        */ 
         final String user = "bmillar";
         final String pass = "bayleyMillar";
         final String host = "silver";
@@ -33,6 +40,11 @@ public class JDBCConnection {
         }
     }
     
+    /**
+     * 
+     * @param sql
+     * @return 
+     */
     public PreparedStatement createPreparedStatement(String sql){
         try {
             return connection.prepareStatement(sql);
