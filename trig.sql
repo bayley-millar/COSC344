@@ -1,3 +1,8 @@
+--Trigger for changin the derrived attribute total appoinemnts, from car.
+--On insert of a new row, the total appointments is updated by one.
+--This gives us the a total number of appointments in the database.
+--For deletion of a row will result in the total appointments decrementing
+--by one
 
 CREATE OR REPLACE TRIGGER total_appointments
 AFTER INSERT OR UPDATE OR DELETE OF car_id ON appointment
