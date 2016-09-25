@@ -67,4 +67,9 @@ public class Appointment {
     public void setWorkToDo(String workToDo) {
         this.workToDo = workToDo;
     }   
+    
+    public String toString() {
+        return getId() + " " + getCarId() + " " + getPickupDate() + 
+                " " + getDropOffDate()  + " " + getWorkToDo();
+    }
 }

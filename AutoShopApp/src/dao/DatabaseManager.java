@@ -91,8 +91,10 @@ public class DatabaseManager {
     }
 
     public void addAppointment(Appointment a) {
-        final String appointmentSql = "INSERT INTO appointment VALUES(?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?)";
-        final String workToDoSql = "INSERT INTO appointment_work_to_do VALUES (?,?)";
+        final String appointmentSql = "INSERT INTO appointment VALUES(?,TO_DATE"
+                + "(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?)";
+        final String workToDoSql = "INSERT INTO appointment_work_to_do VALUES"
+                + " (?,?)";
         try {
             final PreparedStatement appStmt
                     = conn.createPreparedStatement(appointmentSql);
@@ -116,19 +118,32 @@ public class DatabaseManager {
     }
     
     public void deleteAppointnment(Appointment a){
-        final String appSql = "DELETE FROM appointment WHERE ap_id = ?;";
-        final String workSql = "DELETE FROM work_to_do WHERE w_ap_id = ?;";
+        final String appSql = "DELETE FROM appointment WHERE ap_id = ?";
+        final String workSql = "DELETE FROM appointment_work_to_do WHERE w_ap_id = ?";
+        final String partSql = "DELETE FROM parts WHERE p_app_id = ?";
+        final String respSql = "DELETE FROM responsible_for WHERE r_ap_id = ?";
+
 
         try {
             final PreparedStatement appStmt
                     = conn.createPreparedStatement(appSql);
             final PreparedStatement workStmt
                     = conn.createPreparedStatement(workSql);
+            final PreparedStatement partStmt
+                    = conn.createPreparedStatement(partSql);
+            final PreparedStatement respStmt
+                    = conn.createPreparedStatement(respSql);
             
             appStmt.setString(1, a.getId());
             workStmt.setString(1, a.getId());
-            appStmt.executeUpdate();
+            partStmt.setString(1, a.getId());
+            respStmt.setString(1, a.getId());
+
             workStmt.executeUpdate();
+            partStmt.executeUpdate();
+            respStmt.executeUpdate();
+            
+            appStmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseManager.class.getName())
                     .log(Level.SEVERE, null, ex);
