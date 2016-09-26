@@ -7,17 +7,17 @@ import javax.swing.AbstractListModel;
 import javax.swing.MutableComboBoxModel;
 
 
-public class SimpleListModel extends AbstractListModel
+public class ListModel extends AbstractListModel
         implements MutableComboBoxModel {
 
    private List items;
    private Object selectedItem;
 
-   public SimpleListModel() {
+   public ListModel() {
       items = new ArrayList();
    }
 
-   public SimpleListModel(Collection items) {
+   public ListModel(Collection items) {
       this.items = new ArrayList(items);
    }
 

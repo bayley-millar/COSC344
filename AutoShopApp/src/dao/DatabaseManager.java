@@ -21,15 +21,20 @@ public class DatabaseManager {
     private final JDBCConnection conn = new JDBCConnection();
     
     /**
-     * This method returns a Collection of all appointments in the database. 
+     * Returns a Collection of all appointments in the database. 
+     * 
      * @return Collection object, appointments in the database.
     **/
     public Collection<Appointment> getAppointments() {
         final ArrayList<Appointment> appointments = new ArrayList<>();
+        //Sql statement gets all columns from appointment and work_to_do 
+        //column from appointment_work_to_do.
         final String appointmentSql =
-            "select ap_id, pickup_date, drop_off_date, car_id, work_to_do from appointment, appointment_work_to_do where ap_id = w_ap_id";
+            "SELECT ap_id, pickup_date, drop_off_date, car_id, work_to_do FROM "
+                + "appointment, appointment_work_to_do WHERE ap_id = w_ap_id";
         try {
-            final PreparedStatement stmt = conn.createPreparedStatement(appointmentSql);
+            final PreparedStatement stmt = conn.createPreparedStatement(
+                    appointmentSql);
             final ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -59,11 +64,14 @@ public class DatabaseManager {
         return appointments;
     }
     /**
-     * This method returns an appointment given the searchId.
+     * Returns an appointment given the searchId.
+     * 
      * @param String searchId, the ID of the appointment.
      * @return Appointment object associated with the searchId.
     **/
     public Appointment getAppointmentById(String searchId){
+        // Selects all columns from appointment and appointment_work_to_do where
+        // appointment id are the same.
         final String sql =
                 "SELECT * FROM appointment, appointment_work_to_do"
                 + " WHERE ap_id = w_ap_id AND ap_id = ?";
@@ -79,7 +87,8 @@ public class DatabaseManager {
             if (rs.next()) {
                 final String id = rs.getString("ap_id");
                 final String pickupDate = (String) rs.getObject("pickup_date");
-                final String dropOffDate = (String) rs.getObject("drop_off_date");
+                final String dropOffDate =
+                        (String) rs.getObject("drop_off_date");
                 final String carId = rs.getString("car_id");
                 final String workToDo = rs.getString("work_to_do");
 
@@ -99,10 +108,16 @@ public class DatabaseManager {
     }
     
     /**
-     * This method adds a appointment to the database.
+     * Adds a appointment to the database.
+     * 
      * @param Appointment a, new appointment object.
     **/
     public void addAppointment(Appointment a) {
+        /**
+         * appointmentSql SQL statement inserts a new appointment into the db.
+         * workToDoSql SQL statement inserts a new appointment_work_to_do
+         * into the db.
+         */
         final String appointmentSql = "INSERT INTO appointment VALUES(?,TO_DATE"
                 + "(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?)";
         final String workToDoSql = "INSERT INTO appointment_work_to_do VALUES"
@@ -133,6 +148,10 @@ public class DatabaseManager {
      * @param Appointment a, appointment object to be deleted.
     **/
     public void deleteAppointnment(Appointment a){
+        /**
+         * Deletes appointment from db. To do this everything related to that
+         * appointment must also be deleted. 
+         */
         final String appSql = "DELETE FROM appointment WHERE ap_id = ?";
         final String workSql = "DELETE FROM appointment_work_to_do WHERE w_ap_id = ?";
         final String partSql = "DELETE FROM parts WHERE p_app_id = ?";
@@ -165,6 +184,11 @@ public class DatabaseManager {
         }
     }
     
+    /**
+     * Returns a list of the carIds from the car table.
+     * 
+     * @return 
+     */
     public Collection<String> getCarIds(){
         final ArrayList<String> ids = new ArrayList<>();
         final String carSql =

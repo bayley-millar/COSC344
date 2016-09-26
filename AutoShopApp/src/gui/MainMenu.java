@@ -8,7 +8,8 @@ package gui;
 import dao.DatabaseManager;
 
 /**
- *
+ * Main menu for application.
+ * 
  * @author rstorr
  */
 public class MainMenu extends javax.swing.JFrame {
@@ -104,10 +105,18 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Create add appointment form on add Appointment button click.
+     * @param evt 
+     */
     private void btnAddAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAppointmentActionPerformed
         new AddAppointment(db).setVisible(true);
     }//GEN-LAST:event_btnAddAppointmentActionPerformed
 
+    /**
+     * Create view appointments form on view appointments button click.
+     * @param evt 
+     */
     private void btnViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAppointmentsActionPerformed
         new ViewAppointments(db).setVisible(true);
     }//GEN-LAST:event_btnViewAppointmentsActionPerformed

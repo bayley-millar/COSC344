@@ -5,18 +5,24 @@ import dao.DatabaseManager;
 import domain.Appointment;
 import java.util.Collection;
 import javax.swing.JOptionPane;
-import util.SimpleListModel;
+import util.ListModel;
 
 /**
- *
+ *  JFrame class for displaying appointments in the database.
+ * 
  * @author reuben
  */
 public class ViewAppointments extends javax.swing.JFrame {
 
-    private final SimpleListModel appointmentsListModel
-            = new SimpleListModel();
+    private final ListModel appointmentsListModel
+            = new ListModel();
     private final DatabaseManager db;
 
+    /**
+     * Constructor.
+     * 
+     * @param db instances of the database
+     */
     public ViewAppointments(DatabaseManager db) {
         initComponents();
         this.db = db;
@@ -152,6 +158,11 @@ public class ViewAppointments extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
+    /**
+     * Deletes the selected appointment from the database by calling 
+     * the appropriate method on the instance of DatabaseManager.
+     * @param evt 
+     */
     private void btnDeleteAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAppointmentActionPerformed
         if (!listAppointments.isSelectionEmpty()) {
             final Appointment appointment
@@ -167,7 +178,12 @@ public class ViewAppointments extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnDeleteAppointmentActionPerformed
-
+    /**
+     * Returns the appointment that corresponds to the id in the search box.
+     * This is done by calling the appropriate method on the instance of 
+     * DatabaseManager.
+     * @param evt 
+     */
     private void btnSearchByIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchByIdActionPerformed
         final Appointment appointment = db.getAppointmentById(
                 txtAppointmentId.getText());
