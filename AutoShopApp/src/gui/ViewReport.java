@@ -10,7 +10,7 @@ import domain.Account;
 import domain.Appointment;
 import domain.Customer;
 import java.util.Collection;
-import util.SimpleListModel;
+import util.ListModel;
 
 /**
  *
@@ -18,12 +18,12 @@ import util.SimpleListModel;
  */
 public class ViewReport extends javax.swing.JFrame {
     
-    private final SimpleListModel list1
-            = new SimpleListModel();
-    private final SimpleListModel list2
-            = new SimpleListModel();
-    private final SimpleListModel list3
-            = new SimpleListModel();
+    private final ListModel list1
+            = new ListModel();
+    private final ListModel list2
+            = new ListModel();
+    private final ListModel list3
+            = new ListModel();
     private final DatabaseManager db;
 
     /**
