@@ -7,31 +7,58 @@ package gui;
 
 import dao.DatabaseManager;
 import domain.Appointment;
+import java.util.ArrayList;
+import java.util.Random;
+import util.SimpleListModel;
+import util.TimeUtil;
 
 /**
  *
  * @author rstorr
  */
 public class AddAppointment extends javax.swing.JFrame {
-    
+
     private final DatabaseManager db;
+    private final SimpleListModel carIdsListModel = new SimpleListModel();
+    private String appId = "";
 
     /**
      * Creates new form Add_appointment
+     *
      * @param db
      */
     public AddAppointment(DatabaseManager db) {
         initComponents();
         this.setName("productDialog");
-        
         this.db = db;
+        final ArrayList<String> carIds = (ArrayList) this.db.getCarIds();
 
-        txtCarId.setName("txtId");
-        txtDropOffTime.setName("txtDrppOffTime");
-        txtPickUpTime.setName("txtPickupTime");
-        txtWorkToDo.setName("txtWorkToDo");
-        btnAdd.setName("btnAdd");
-        btnCancel.setName("btnCancel");
+        do {
+            Random rnd = new Random();
+            appId = String.valueOf(100000000 + rnd.nextInt(900000000));
+        } while (this.db.getAppointmentById(appId) != null);
+        
+        appIdNumber.setText(appId);
+
+        comboCarId.setModel(carIdsListModel);
+        for (String day : TimeUtil.DAYS) {
+            comboPickUpDay.addItem(day);
+            comboDropOffDay.addItem(day);
+        }
+
+        for (String mon : TimeUtil.MONTHS) {
+            comboPickUpMon.addItem(mon);
+            comboDropOffMon.addItem(mon);
+        }
+
+        carIdsListModel.updateItems(carIds);
+
+        comboPickUpDay.setSelectedIndex(0);
+        comboDropOffDay.setSelectedIndex(0);
+        comboPickUpMon.setSelectedIndex(0);
+        comboDropOffMon.setSelectedIndex(0);
+
+        carIdsListModel.setSelectedItem(carIds.get(0));
     }
 
     /**
@@ -47,15 +74,21 @@ public class AddAppointment extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtPickUpTime = new javax.swing.JTextField();
-        txtDropOffTime = new javax.swing.JTextField();
         txtWorkToDo = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        txtCarId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtAppointmentId = new javax.swing.JTextField();
+        comboCarId = new javax.swing.JComboBox<>();
+        comboPickUpDay = new javax.swing.JComboBox<>();
+        comboDropOffDay = new javax.swing.JComboBox<>();
+        comboPickUpMon = new javax.swing.JComboBox<>();
+        comboDropOffMon = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        appIdNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,18 +99,6 @@ public class AddAppointment extends javax.swing.JFrame {
         jLabel3.setText("Work to do");
 
         jLabel4.setText("Drop off time");
-
-        txtPickUpTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPickUpTimeActionPerformed(evt);
-            }
-        });
-
-        txtDropOffTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDropOffTimeActionPerformed(evt);
-            }
-        });
 
         txtWorkToDo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,19 +122,23 @@ public class AddAppointment extends javax.swing.JFrame {
 
         jLabel6.setText("Car ID");
 
-        txtCarId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCarIdActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("Appointment ID");
 
-        txtAppointmentId.addActionListener(new java.awt.event.ActionListener() {
+        comboCarId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        comboDropOffMon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAppointmentIdActionPerformed(evt);
+                comboDropOffMonActionPerformed(evt);
             }
         });
+
+        jLabel5.setText("/");
+
+        jLabel8.setText("/");
+
+        jLabel9.setText("/ 2016");
+
+        jLabel10.setText("/ 2016");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,39 +149,51 @@ public class AddAppointment extends javax.swing.JFrame {
                 .addComponent(btnAdd)
                 .addGap(74, 74, 74)
                 .addComponent(btnCancel)
-                .addContainerGap(163, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(46, 46, 46))
+                .addContainerGap(212, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtWorkToDo, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(19, 19, 19)
-                                    .addComponent(txtPickUpTime, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtAppointmentId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtCarId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
-                                .addComponent(txtDropOffTime, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(43, 43, 43))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboCarId, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(comboPickUpDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboPickUpMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel9))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(appIdNumber))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtWorkToDo, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(comboDropOffDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboDropOffMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10)))))
+                .addContainerGap(121, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(166, 166, 166))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,25 +201,37 @@ public class AddAppointment extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtAppointmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtCarId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(appIdNumber))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(comboCarId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtPickUpTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtDropOffTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboPickUpDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboPickUpMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtWorkToDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboDropOffDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboDropOffMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtWorkToDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
@@ -193,58 +242,56 @@ public class AddAppointment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtPickUpTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPickUpTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPickUpTimeActionPerformed
-
-    private void txtDropOffTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDropOffTimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDropOffTimeActionPerformed
-
     private void txtWorkToDoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWorkToDoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtWorkToDoActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
-            final String id = txtAppointmentId.getText();
-            final String carID = txtCarId.getText();
-            final String pickUpDate = txtPickUpTime.getText();
-            final String dropOffDate = txtDropOffTime.getText();
-            final String workToDo = txtWorkToDo.getText();
-           
-            final Appointment a = new Appointment(pickUpDate, id,
-                    dropOffDate, carID, workToDo);
-            
-            db.addAppointment(a);
-            dispose();
-    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void txtCarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCarIdActionPerformed
+        final String carID = comboCarId.getSelectedItem().toString();
+        final String pickUpDate = comboPickUpDay.getSelectedItem().toString()
+                + "-" + comboPickUpMon.getSelectedItem().toString() + "-2016";
+        final String dropOffDate = comboDropOffDay.getSelectedItem().toString()
+                + "-" + comboDropOffMon.getSelectedItem().toString() + "-2016";
+        final String workToDo = txtWorkToDo.getText();
+        
+                System.out.println(pickUpDate);
+
+
+        final Appointment a = new Appointment(pickUpDate, appId,
+                dropOffDate, carID, workToDo);
+
+        db.addAppointment(a);
+        dispose();
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void txtAppointmentIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAppointmentIdActionPerformed
+    private void comboDropOffMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDropOffMonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAppointmentIdActionPerformed
+    }//GEN-LAST:event_comboDropOffMonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel appIdNumber;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JComboBox<String> comboCarId;
+    private javax.swing.JComboBox<String> comboDropOffDay;
+    private javax.swing.JComboBox<String> comboDropOffMon;
+    private javax.swing.JComboBox<String> comboPickUpDay;
+    private javax.swing.JComboBox<String> comboPickUpMon;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtAppointmentId;
-    private javax.swing.JTextField txtCarId;
-    private javax.swing.JTextField txtDropOffTime;
-    private javax.swing.JTextField txtPickUpTime;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtWorkToDo;
     // End of variables declaration//GEN-END:variables
 }

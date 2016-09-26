@@ -164,4 +164,25 @@ public class DatabaseManager {
                     .log(Level.SEVERE, null, ex);
         }
     }
+    
+    public Collection<String> getCarIds(){
+        final ArrayList<String> ids = new ArrayList<>();
+        final String carSql =
+            "SELECT car_id from car";
+        try {
+            final PreparedStatement stmt = conn.createPreparedStatement(carSql);
+            final ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                final String id = rs.getString("car_id");
+                ids.add(id);
+            }
+            return ids;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        
+        return ids;
+    }
 }
