@@ -13,13 +13,17 @@ import network.JDBCConnection;
 import util.TimeUtil;
 
 /**
- *
- * @author reuben
+ * This class handles changes to the database
+ * through various SQL statements.
  */
 public class DatabaseManager {
 
     private final JDBCConnection conn = new JDBCConnection();
-
+    
+    /**
+     * This method returns a Collection of all appointments in the database. 
+     * @return Collection object, appointments in the database.
+    **/
     public Collection<Appointment> getAppointments() {
         final ArrayList<Appointment> appointments = new ArrayList<>();
         final String appointmentSql =
@@ -54,7 +58,11 @@ public class DatabaseManager {
         
         return appointments;
     }
-    
+    /**
+     * This method returns an appointment given the searchId.
+     * @param String searchId, the ID of the appointment.
+     * @return Appointment object associated with the searchId.
+    **/
     public Appointment getAppointmentById(String searchId){
         final String sql =
                 "SELECT * FROM appointment, appointment_work_to_do"
@@ -89,7 +97,11 @@ public class DatabaseManager {
         
         return a;
     }
-
+    
+    /**
+     * This method adds a appointment to the database.
+     * @param Appointment a, new appointment object.
+    **/
     public void addAppointment(Appointment a) {
         final String appointmentSql = "INSERT INTO appointment VALUES(?,TO_DATE"
                 + "(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?)";
@@ -116,7 +128,10 @@ public class DatabaseManager {
                     .log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * This method deletes an appointment from the database.
+     * @param Appointment a, appointment object to be deleted.
+    **/
     public void deleteAppointnment(Appointment a){
         final String appSql = "DELETE FROM appointment WHERE ap_id = ?";
         final String workSql = "DELETE FROM appointment_work_to_do WHERE w_ap_id = ?";
