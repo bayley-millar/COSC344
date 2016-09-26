@@ -68,24 +68,23 @@ CREATE TABLE staff
 
 CREATE TABLE account
 (acc_id CHAR(9) PRIMARY KEY             NOT NULL,
-ca_id CHAR(9) REFERENCES customer(c_id) NOT NULL,
 balance FLOAT DEFAULT (0.0),
 last_visit DATE
 );
         INSERT INTO account VALUES
-        ('888888888', '666666666', 0.0, TO_DATE('14-04-1999',
+        ('888888888', 0.0, TO_DATE('14-04-1999',
         'DD-MM-YYYY'));
 
         INSERT INTO account VALUES
-        ('888888881', '111111111', 0.0, TO_DATE('23-09-2015',
+        ('888888881', 0.0, TO_DATE('23-09-2015',
         'DD-MM-YYYY'));
 
         INSERT INTO account VALUES
-        ('888888882', '555555555', 0.0, TO_DATE('18-10-2015',
+        ('888888882', 0.0, TO_DATE('18-10-2015',
         'DD-MM-YYYY'));
 
         INSERT INTO account VALUES
-        ('888888883', '999999999', 0.0, TO_DATE('01-01-2015',
+        ('888888883', 0.0, TO_DATE('01-01-2015',
         'DD-MM-YYYY'));
 
 
