@@ -54,7 +54,12 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        btnSomeReport.setText("Some Report");
+        btnSomeReport.setText("Report");
+        btnSomeReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSomeReportActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("BC's Car Doctors");
 
@@ -120,6 +125,10 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnViewAppointmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAppointmentsActionPerformed
         new ViewAppointments(db).setVisible(true);
     }//GEN-LAST:event_btnViewAppointmentsActionPerformed
+
+    private void btnSomeReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSomeReportActionPerformed
+        new ViewReport(db).setVisible(true);      
+    }//GEN-LAST:event_btnSomeReportActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAppointment;

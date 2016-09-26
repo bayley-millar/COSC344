@@ -1,6 +1,8 @@
 package dao;
 
+import domain.Account;
 import domain.Appointment;
+import domain.Customer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,8 +66,107 @@ public class DatabaseManager {
         return appointments;
     }
     /**
-     * Returns an appointment given the searchId.
-     * 
+     * This query will return the customer with the highest balance.
+     * this is then pushed to the GUI for display
+     * @return account collection of the account data 
+     */
+    public Collection<Account> getMax(){
+        final ArrayList<Account> account = new ArrayList<>();
+        final String maxSql =
+            "select * from account where balance = (select max(balance) from account where last_visit >= TO_DATE('25-11-1980','DD-MM-YYYY'))";
+        try {
+            final PreparedStatement stmt = conn.createPreparedStatement(maxSql);
+            final ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                final String id = rs.getString("acc_id");
+                final int balance = rs.getInt("balance");
+                final Date last_visit = rs.getDate("last_visit");
+                final String lastVisitedStr = 
+                        TimeUtil.convertStringToDate(last_visit);
+
+                account.add(new Account(
+                        lastVisitedStr,
+                        balance,
+                        id));
+            }
+            return account;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        
+        return account;
+    }
+    
+    /**
+     * This query gets the customers with a balance over the average amount.
+     * This is also sent to the GUI for display
+     * @return  Account collection
+     */
+    public Collection<Account> getAverage(){
+        final ArrayList<Account> account2 = new ArrayList<>();
+        final String aboveAvgSql =
+            "select * from account b where balance > (select avg(balance) from account)";
+        try {
+            final PreparedStatement stmt = conn.createPreparedStatement(aboveAvgSql);
+            final ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                final String id = rs.getString("acc_id");
+                final int balance = rs.getInt("balance");
+                final Date last_visit = rs.getDate("last_visit");
+                final String lastVisitedStr = 
+                        TimeUtil.convertStringToDate(last_visit);
+
+                account2.add(new Account(
+                        lastVisitedStr,
+                        balance,
+                        id));
+            }
+            return account2;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        
+        return account2;
+    }
+       
+    /**
+     * This query returns all the customers that have more than one car in the
+     * data base. This is then sent to the GUI for display.
+     * @return customer a collection of customer data 
+     */
+    public Collection<Customer> getMoreThanOneCar(){
+        final ArrayList<Customer> customer = new ArrayList<>();
+        final String moreThanSql =
+            "select c_id, c_fname, c_lname from customer c where 1 < (SELECT count(*) from car where c_id = c.c_id)";
+        try {
+            final PreparedStatement stmt = conn.createPreparedStatement(moreThanSql);
+            final ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                final String firstName = rs.getString("c_fname");
+                final String lastName = rs.getString("c_lname");
+                final String id = rs.getString("c_id");
+
+                customer.add(new Customer(
+                        firstName,
+                        lastName,
+                        id
+                        ));
+            }
+            return customer;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseManager.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+        
+        return customer;
+    }
+    /**
+     * This method returns an appointment given the searchId.
      * @param String searchId, the ID of the appointment.
      * @return Appointment object associated with the searchId.
     **/
@@ -209,4 +310,6 @@ public class DatabaseManager {
         
         return ids;
     }
+    
+    
 }

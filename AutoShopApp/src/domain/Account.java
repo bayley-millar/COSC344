@@ -12,14 +12,12 @@ package domain;
 public class Account {
     private String lastVisited;
     private int balance;
-    private int id;
-    private int customerId;
+    private String id;
 
-    public Account(String lastVisited, int balance, int id, int customerId) {
+    public Account(String lastVisited, int balance, String id) {
         this.lastVisited = lastVisited;
         this.balance = balance;
         this.id = id;
-        this.customerId = customerId;
     }
 
     public String getLastVisited() {
@@ -38,21 +36,20 @@ public class Account {
         this.balance = balance;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    @Override
+    public String toString() {
+        return  "lastVisited= " + lastVisited + ", balance= " + balance + ", id= " + id ;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
+
     
     
     

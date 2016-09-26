@@ -13,22 +13,28 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String address;
-    private int id;
+    private String id;
     private String gender;
-    private int phoneNumber;
 
     public Customer(String firstName,
             String lastName,
             String address,
-            int id,
-            String gender,
-            int phoneNumber) {
+            String id,
+            String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.id = id;
         this.gender = gender;
-        this.phoneNumber = phoneNumber;
+    }
+    
+        public Customer(String firstName,
+            String lastName,
+            String id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.id = id;
+        ;
     }
 
     public String getFirstName() {
@@ -43,7 +49,7 @@ public class Customer {
         return address;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -51,9 +57,6 @@ public class Customer {
         return gender;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -67,7 +70,7 @@ public class Customer {
         this.address = address;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -75,7 +78,11 @@ public class Customer {
         this.gender = gender;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    @Override
+    public String toString() {
+        return "firstName= " + firstName + ", lastName= " + lastName + ", id= " + id ;
     }
+    
+    
+
 }
