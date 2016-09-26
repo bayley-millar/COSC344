@@ -20,7 +20,10 @@ public class JDBCConnection {
 
     private Connection connection;
     
-   
+    /**
+     * Constructor for JDBCConnection, server credentials and 
+     * connection object created.
+     **/
     public JDBCConnection() {
         /**************************************** 
         Add your server details here to login
@@ -41,9 +44,8 @@ public class JDBCConnection {
     }
     
     /**
-     * 
-     * @param sql
-     * @return 
+     * @param String sql, an SQL statement
+     * @return PreparedStatement or NULL.
      */
     public PreparedStatement createPreparedStatement(String sql){
         try {
@@ -54,7 +56,12 @@ public class JDBCConnection {
             return null;
         }
     }
-
+    
+    /**
+     * This method execute an SQL Query.
+     * @param String sql, an SQL statement
+     * @return ResultSet or NULL.
+     */
     public ResultSet executeQuerySQL(final String sql) {
         Statement stmt;
         try {
@@ -66,7 +73,9 @@ public class JDBCConnection {
         }
         return null;
     }
-
+    /**
+     * This method closed the connection to the database.
+     */
     public void closeConnection() {
         if (connection != null) {
             try {
@@ -76,7 +85,10 @@ public class JDBCConnection {
             }
         }
     }
-
+    /**
+     * This method prints an error message if connections or method calls
+     * fail.
+     */
     private void quit(String message) {
         System.err.println(message);
         System.exit(1);
