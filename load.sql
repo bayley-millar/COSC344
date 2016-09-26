@@ -30,19 +30,19 @@ CREATE TABLE staff
 	date_of_birth DATE);
 
 CREATE TABLE account
-(acc_id CHAR(9) PRIMARY KEY             NOT NULL,
-ca_id CHAR(9) REFERENCES customer(c_id) NOT NULL,
-balance FLOAT DEFAULT (0.0),
-last_visit DATE
-);
+       (acc_id CHAR(9) PRIMARY KEY             NOT NULL,
+       ca_id CHAR(9) REFERENCES customer(c_id) NOT NULL,
+       balance FLOAT DEFAULT (0.0),
+       last_visit DATE
+       );
 
 CREATE TABLE car
-(car_id CHAR(9) PRIMARY KEY             NOT NULL,
-make VARCHAR2(15) NOT NULL,
-model VARCHAR2(15),
-mk_year VARCHAR2(15),
-c_id CHAR(9) REFERENCES customer(c_id)  NOT NULL,
-total_appointment INT DEFAULT(0));
+       (car_id CHAR(9) PRIMARY KEY             NOT NULL,
+       make VARCHAR2(15) NOT NULL,
+       model VARCHAR2(15),
+       mk_year VARCHAR2(15),
+       c_id CHAR(9) REFERENCES customer(c_id)  NOT NULL,
+       total_appointment INT DEFAULT(0));
 
 CREATE TABLE appointment
        (ap_id CHAR(9) PRIMARY KEY       NOT NULL,
@@ -83,19 +83,19 @@ CREATE TABLE customer_phone_number
        );
 
 CREATE TABLE responsible_for
-(r_ap_id CHAR(9) REFERENCES appointment(ap_id),
-r_s_id CHAR(9) REFERENCES staff(s_id),
-PRIMARY KEY(r_ap_id, r_s_id));
+       (r_ap_id CHAR(9) REFERENCES appointment(ap_id),
+       r_s_id CHAR(9) REFERENCES staff(s_id),
+       PRIMARY KEY(r_ap_id, r_s_id));
 
 CREATE TABLE appointment_work_to_do
-(w_ap_id CHAR(9) REFERENCES appointment(ap_id),
-work_to_do VARCHAR2(30),
-PRIMARY KEY (work_to_do, w_ap_id) );
+       (w_ap_id CHAR(9) REFERENCES appointment(ap_id),
+       work_to_do VARCHAR2(30),
+       PRIMARY KEY (work_to_do, w_ap_id) );
 
 CREATE TABLE staff_phone_number
-(staff_number CHAR(9),
-phone_s_id CHAR(9) REFERENCES staff(s_id),
-PRIMARY KEY (staff_number, phone_s_id) );
+       (staff_number CHAR(9),
+       phone_s_id CHAR(9) REFERENCES staff(s_id),
+       PRIMARY KEY (staff_number, phone_s_id) );
 
 --TRIGGER IMPLEMENTATION
 @trig.sql;
@@ -160,6 +160,14 @@ INSERT INTO appointment VALUES
 ('555555555',
 TO_DATE('25-11-1980', 'DD-MM-YYYY'),TO_DATE('25-11-1980', 'DD-MM-YYYY') ,
 '656565656');
+INSERT INTO appointment VALUES
+('555555556',
+TO_DATE('28-11-1982', 'DD-MM-YYYY'),TO_DATE('25-11-1982', 'DD-MM-YYYY') ,
+'653565654');
+INSERT INTO appointment VALUES
+('555555557',
+TO_DATE('07-12-1982', 'DD-MM-YYYY'),TO_DATE('05-12-1982', 'DD-MM-YYYY') ,
+'653565654');
 
 --PARTS
 INSERT INTO parts VALUES
@@ -167,13 +175,15 @@ INSERT INTO parts VALUES
 
 --TRANSACTIONS
 INSERT INTO transactions VALUES
-(TO_DATE('14-02-1998','DD-MM-YYYY'), 'CH', 1200.80,983642313 ,'888888888');
+(TO_DATE('14-02-1998','DD-MM-YYYY'), 'CH', 1200.80, 983642313 ,'888888888');
 INSERT INTO transactions VALUES
-(TO_DATE('18-02-1999','DD-MM-YYYY'), 'CH', 80,983642311 ,'888888881');
+(TO_DATE('18-02-1999','DD-MM-YYYY'), 'CH', 80, 983642311 ,'888888881');
 INSERT INTO transactions VALUES
-(TO_DATE('14-09-1998','DD-MM-YYYY'), 'CH', 80 ,983642312 ,'888888882');
+(TO_DATE('14-09-1998','DD-MM-YYYY'), 'CH', 80, 983642312 ,'888888882');
 INSERT INTO transactions VALUES
-(TO_DATE('19-07-1995','DD-MM-YYYY'), 'CH', 1200.80,983642314 ,'888888883');
+(TO_DATE('19-07-1995','DD-MM-YYYY'), 'CH', 365.50 , 983642314 ,'888888883');
+INSERT INTO transactions VALUES
+(TO_DATE('25-07-2005','DD-MM-YYYY'), 'CH', 47.50, 983642315 ,'888888881');
 
 --MANAGES
 INSERT INTO manages VALUES ('888888888','987654321');
