@@ -30,18 +30,18 @@ CREATE TABLE staff
 	date_of_birth DATE);
 
 CREATE TABLE account
-(acc_id CHAR(9) PRIMARY KEY             NOT NULL,
-balance FLOAT DEFAULT (0.0),
-last_visit DATE
-);
+       (acc_id CHAR(9) PRIMARY KEY             NOT NULL,
+       balance FLOAT DEFAULT (0.0),
+       last_visit DATE
+       );
 
 CREATE TABLE car
-(car_id CHAR(9) PRIMARY KEY             NOT NULL,
-make VARCHAR2(15) NOT NULL,
-model VARCHAR2(15),
-mk_year VARCHAR2(15),
-c_id CHAR(9) REFERENCES customer(c_id)  NOT NULL,
-total_appointment INT DEFAULT(0));
+       (car_id CHAR(9) PRIMARY KEY             NOT NULL,
+       make VARCHAR2(15) NOT NULL,
+       model VARCHAR2(15),
+       mk_year VARCHAR2(15),
+       c_id CHAR(9) REFERENCES customer(c_id)  NOT NULL,
+     total_appointment INT DEFAULT(0));
 
 CREATE TABLE appointment
        (ap_id CHAR(9) PRIMARY KEY       NOT NULL,
@@ -82,19 +82,22 @@ CREATE TABLE customer_phone_number
        );
 
 CREATE TABLE responsible_for
-(r_ap_id CHAR(9) REFERENCES appointment(ap_id),
-r_s_id CHAR(9) REFERENCES staff(s_id),
-PRIMARY KEY(r_ap_id, r_s_id));
+       (r_ap_id CHAR(9) REFERENCES appointment(ap_id),
+       r_s_id CHAR(9) REFERENCES staff(s_id),
+       PRIMARY KEY(r_ap_id, r_s_id)
+       );
 
 CREATE TABLE appointment_work_to_do
-(w_ap_id CHAR(9) REFERENCES appointment(ap_id),
-work_to_do VARCHAR2(30),
-PRIMARY KEY (work_to_do, w_ap_id) );
+       (w_ap_id CHAR(9) REFERENCES appointment(ap_id),
+       work_to_do VARCHAR2(30),
+       PRIMARY KEY (work_to_do, w_ap_id)
+       );
 
 CREATE TABLE staff_phone_number
-(staff_number CHAR(9),
-phone_s_id CHAR(9) REFERENCES staff(s_id),
-PRIMARY KEY (staff_number, phone_s_id) );
+       (staff_number CHAR(9),
+       phone_s_id CHAR(9) REFERENCES staff(s_id),
+       PRIMARY KEY (staff_number, phone_s_id)
+       );
 
 --TRIGGER IMPLEMENTATION
 @trig.sql;
